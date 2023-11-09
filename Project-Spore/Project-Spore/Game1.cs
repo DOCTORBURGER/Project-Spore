@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project_Spore.Managers;
+using Project_Spore.Scenes;
 
 namespace Project_Spore
 {
@@ -9,16 +11,25 @@ namespace Project_Spore
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        SceneManager _sceneManager;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
+
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+
+            _sceneManager = new SceneManager(this, _graphics);
+            Components.Add(_sceneManager);
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            _sceneManager.SetScene(new GameScene());
 
             base.Initialize();
         }
